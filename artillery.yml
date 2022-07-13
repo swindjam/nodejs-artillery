@@ -1,0 +1,28 @@
+config:
+  variables:
+    name:
+      - 'test'
+      - 'cat'
+      - 'dog'
+    fixed: 'test'
+  target: 'http://localhost:1234'
+  phases:
+    - duration: 300 # 5 minutes
+      arrivalRate: 10 # 10 RPS
+    - duration: 600 # 10 minutes
+      arrivalRate: 20 # 20 RPS
+scenarios:
+  - name: 'name'
+    flow:
+      - post:
+          url: '/json'
+          json:
+            - data:
+                name: '{{name}}'
+  - name: 'fixed'
+    flow:
+      - post:
+          url: '/json'
+          json:
+            - data:
+                name: '{{fixed}}'
